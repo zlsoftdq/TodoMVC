@@ -2,18 +2,19 @@
 <html data-framework="vue">
   <head>
     <meta charset="utf-8">
-    <title>My first vue project • TodoMVC</title>
-    <link rel="stylesheet" href="https://unpkg.com/todomvc-app-css/index.css">
-    <script src="https:unpkg.com/director/build/director.js"></script>
+    <title>知了Todo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1,maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="css/index.css">
+    <script src="js/director.js"></script>
     <style>[v-cloak] { display: none; }</style>
   </head>
   <body>
     <section class="todoapp">
       <header class="header">
-        <h1>todos</h1>
+        <h1>知了</h1>
         <input class="new-todo"
           autofocus autocomplete="off"
-          placeholder="What needs to be done?"
+          placeholder="请输入待办任务"
           v-model="newTodo"
           @keyup.enter="addTodo">
       </header>
@@ -40,22 +41,24 @@
       </section>
       <footer class="footer" v-show="todos.length" v-cloak>
         <span class="todo-count">
-          <strong>{{ remaining }}</strong> {{ remaining | pluralize }} left
+        还有
+          <strong>{{ remaining }}</strong> <!--{{ remaining | pluralize }}-->任务待完成
         </span>
         <ul class="filters">
-          <li><a href="#/all" :class="{ selected: visibility == 'all' }">All</a></li>
-          <li><a href="#/active" :class="{ selected: visibility == 'active' }">Active</a></li>
-          <li><a href="#/completed" :class="{ selected: visibility == 'completed' }">Completed</a></li>
+          <li><a href="#/all" :class="{ selected: visibility == 'all' }">所有任务</a></li>
+          <li><a href="#/active" :class="{ selected: visibility == 'active' }">待完成的任务</a></li>
+          <li><a href="#/completed" :class="{ selected: visibility == 'completed' }">已完成的任务</a></li>
         </ul>
         <button class="clear-completed" @click="removeCompleted" v-show="todos.length > remaining">
-          Clear completed
+          清空已完成的任务
         </button>
       </footer>
     </section>
     <footer class="info">
-      <p>Double-click to edit a todo</p>
-      <p>Written by <a href="http://evanyou.me">Evan You</a></p>
-      <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+      <p>双击编辑任务</p>
+      <p>让工作更高效，让生活更美好</p>
+      <p>版权所有© 2012 - 2030 <a href="http://zlsoftdq.cn">知了软件</a></p>
+      <p>友情赞助： <a href="http://todomvc.com">TodoMVC</a></p>
     </footer>
 
     <script>
