@@ -1,0 +1,69 @@
+<!doctype html>
+<html data-framework="vue">
+  <head>
+    <meta charset="utf-8">
+    <title>知了Todo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1,maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="css/index.css">
+    <script src="js/director.js"></script>
+    <style>[v-cloak] { display: none; }</style>
+  </head>
+  <body>
+    <section class="todoapp">
+      <header class="header">
+        <h1>知了</h1>
+        <input class="new-todo"
+          autofocus autocomplete="off"
+          placeholder="请输入待办任务"
+          v-model="newTodo"
+          @keyup.enter="addTodo">
+      </header>
+      <section class="main" v-show="todos.length" v-cloak>
+        <input class="toggle-all" type="checkbox" v-model="allDone">
+        <ul class="todo-list">
+          <li v-for="todo in filteredTodos"
+            class="todo"
+            :key="todo.id"
+            :class="{ completed: todo.completed, editing: todo == editedTodo }">
+            <div class="view">
+              <input class="toggle" type="checkbox" v-model="todo.completed">
+              <label @dblclick="editTodo(todo)">{{ todo.title }}</label>
+              <button class="destroy" @click="removeTodo(todo)"></button>
+            </div>
+            <input class="edit" type="text"
+              v-model="todo.title"
+              v-todo-focus="todo == editedTodo"
+              @blur="doneEdit(todo)"
+              @keyup.enter="doneEdit(todo)"
+              @keyup.esc="cancelEdit(todo)">
+          </li>
+        </ul>
+      </section>
+      <footer class="footer" v-show="todos.length" v-cloak>
+        <span class="todo-count">
+        还有
+          <strong>{{ remaining }}</strong> <!--{{ remaining | pluralize }}-->任务待完成
+        </span>
+        <ul class="filters">
+          <li><a href="#/all" :class="{ selected: visibility == 'all' }">所有任务</a></li>
+          <li><a href="#/active" :class="{ selected: visibility == 'active' }">待完成的任务</a></li>
+          <li><a href="#/completed" :class="{ selected: visibility == 'completed' }">已完成的任务</a></li>
+        </ul>
+        <button class="clear-completed" @click="removeCompleted" v-show="todos.length > remaining">
+          清空已完成的任务
+        </button>
+      </footer>
+    </section>
+    <footer class="info">
+      <p>知了 Todo v1.0</p>
+      <p>让工作更高效，让生活更美好</p>
+      <p>版权所有© 2012 - 2030 <a href="http://zlsoftdq.cn">知了软件</a></p>
+    </footer>
+
+    <script>
+        if (navigator.userAgent.indexOf('PhantomJS') > -1) localStorage.clear()
+    </script>
+    <script src="lib/vue.min.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
